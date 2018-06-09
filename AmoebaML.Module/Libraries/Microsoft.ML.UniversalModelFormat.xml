@@ -1,0 +1,1979 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.ML.UniversalModelFormat</name>
+    </assembly>
+    <members>
+        <member name="T:LotusIR.GraphReflection">
+            <summary>Holder for reflection information generated from graph.proto</summary>
+        </member>
+        <member name="P:LotusIR.GraphReflection.Descriptor">
+            <summary>File descriptor for graph.proto</summary>
+        </member>
+        <member name="T:LotusIR.Version">
+            <summary>
+            To be compatible with both proto2 and proto3, we will use a version number
+            that is not defined by the default value but an explicit enum number.
+            </summary>
+        </member>
+        <member name="F:LotusIR.Version.None">
+            <summary>
+            Just for proto3 compatibility
+            </summary>
+        </member>
+        <member name="F:LotusIR.Version.IrVersion">
+            <summary>
+            The version field is always serialized and we will use it to store the
+            version that the  graph is generated from. This helps us set up version
+            control. We should use version as
+                xx(major) - xx(minor) - xxxx(bugfix)
+            and we are starting with 00000001.
+            </summary>
+        </member>
+        <member name="T:LotusIR.AttributeProto">
+            <summary>
+            A named attribute containing either singular float, integer, string
+            and tensor values, or repeated float, integer, string and tensor values.
+            An AttributeProto MUST contain the name field, and *only one* of the
+            following content fields, effectively enforcing a C/C++ union equivalent.
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Name">
+            <summary>
+            The name field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.FFieldNumber">
+            <summary>Field number for the "f" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.F">
+            <summary>
+            float
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.IFieldNumber">
+            <summary>Field number for the "i" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.I">
+            <summary>
+            int
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.SFieldNumber">
+            <summary>Field number for the "s" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.S">
+            <summary>
+            UTF-8 string
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.TFieldNumber">
+            <summary>Field number for the "t" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.T">
+            <summary>
+            tensor value
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.GFieldNumber">
+            <summary>Field number for the "g" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.G">
+            <summary>
+            graph
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.FloatsFieldNumber">
+            <summary>Field number for the "floats" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Floats">
+            <summary>
+            list of floats
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.IntsFieldNumber">
+            <summary>Field number for the "ints" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Ints">
+            <summary>
+            list of ints
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.StringsFieldNumber">
+            <summary>Field number for the "strings" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Strings">
+            <summary>
+            list of UTF-8 strings
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.TensorsFieldNumber">
+            <summary>Field number for the "tensors" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Tensors">
+            <summary>
+            list of tensors
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.GraphsFieldNumber">
+            <summary>Field number for the "graphs" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Graphs">
+            <summary>
+            list of graph
+            </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.TypeFieldNumber">
+            <summary>Field number for the "type" field.</summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.Types_FieldNumber">
+            <summary>Field number for the "types" field.</summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.ShapeFieldNumber">
+            <summary>Field number for the "shape" field.</summary>
+        </member>
+        <member name="P:LotusIR.AttributeProto.Shape">
+             <summary>
+            ISSUE:13807134,dbox: Do we ever see shape showing up as an attribute value?
+                        If so, won't it always be accompanied by a TypeProto?
+             </summary>
+        </member>
+        <member name="F:LotusIR.AttributeProto.ShapesFieldNumber">
+            <summary>Field number for the "shapes" field.</summary>
+        </member>
+        <member name="T:LotusIR.ValueInfoProto">
+            <summary>
+            Defines information on value, including the name, the type, and
+            the shape of the value.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueInfoProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueInfoProto.Name">
+            <summary>
+            This field MUST be present in this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueInfoProto.TypeFieldNumber">
+            <summary>Field number for the "type" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueInfoProto.Type">
+            <summary>
+            This field MUST be present in this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueInfoProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueInfoProto.DocString">
+            <summary>
+            An  human-readable documentation for this node in the graph.
+            This text MAY contain Markdown markup that conforms to http://commonmark.org/. 
+            </summary>
+        </member>
+        <member name="T:LotusIR.NodeProto">
+             <summary>
+             Defines a node in a computation graph. Each graph node is either an
+             operator or a function call. A node that is similar to the notion of "layer"
+             or "operator" in many deep learning frameworks. For example, it can be a
+             node of type "Conv" that takes in an image, a filter tensor and a bias
+             tensor, and produces the convolved output.
+            
+             NOTE: Control flow is defined by two built-in operators:
+            
+             Cond(p, true_input, false_input) takes three inputs, where p is a
+             boolean scalar tensor, true_input is the list of inputs to the true
+             branch of cond, and false_input is the list of inputs to the false
+             branch of cond. The true and false branches are defined as 
+             functions that takes true_input and false_input as inputs respectively.
+             The two functions must have the same number of outputs, and each
+             corresponding output must have the same types, and have compatible
+             shapes.
+            
+             While(vars, consts) takes two inputs, where vars are the initial
+             values of the loop variables and consts are the values of constants
+             used inside the loop. The loop condition and loop body are defined
+             as functions. The functions take both vars and consts as inputs.
+             The loop condition function returns a boolean scalar tensor. The
+             loop body function has the form: body(vars, consts) = new_vars,
+             where new_vars are the new values of the loop variables after one
+             iteration so must match vars in terms of types and shapes.
+             </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.Input">
+            <summary>
+            The named inputs of the node.
+            </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.Output">
+            <summary>
+            The named outputs of the node.
+            </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.Name">
+            <summary>
+            The name of this node.
+            This field is  and used to uniquely identify nodes in the graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.OpTypeFieldNumber">
+            <summary>Field number for the "op_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.OpType">
+            <summary>
+            The name of the operator/function called by the node.
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.AttributeFieldNumber">
+            <summary>Field number for the "attribute" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.Attribute">
+            <summary>
+            Additional named attributes.
+            </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.DocString">
+            <summary>
+            An  human-readable documentation for this node in the graph.
+            This text MAY contain Markdown markup that conforms to http://commonmark.org/. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.InputArgCountFieldNumber">
+            <summary>Field number for the "input_arg_count" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.InputArgCount">
+             <summary>
+             The number of inputs for each argument of the operator/function.
+             A formal parameter of the op may take a variable number of inputs
+             that is only known when this node is constructed.
+            BUG:13806939,dbox: I'm assuming that this field is like input_arg_info in that
+                      a zero element/missing array implies that one needs to crawl
+                      the graph to figure out the input counts, yes? Confirm and I'll
+                      make clear.  Otherwise, we need to require it to be present
+                      and accurate.
+             </summary>
+        </member>
+        <member name="F:LotusIR.NodeProto.ControlInputFieldNumber">
+            <summary>Field number for the "control_input" field.</summary>
+        </member>
+        <member name="P:LotusIR.NodeProto.ControlInput">
+            <summary>
+            Specify a list of named nodes that must be executed before this node.
+            Framework may use this to give users the ability to impose additional
+            execution orders for the operations.
+            </summary>
+        </member>
+        <member name="T:LotusIR.ModelProto">
+            <summary>
+            ModelProto is a top-level file/container format for bundling a ML model.
+            The semantics of the model are described by the GraphProto that represents
+            a parameterized computation graph against a set of named operators that are
+            defined independently from the graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.IrVersionFieldNumber">
+            <summary>Field number for the "ir_version" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.IrVersion">
+            <summary>
+            The version of the IR this model targets. See Version enum above.
+            This field MUST be present.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.ProducerNameFieldNumber">
+            <summary>Field number for the "producer_name" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.ProducerName">
+            <summary>
+            The name of the framework or tool used to generate this model.
+            This field SHOULD be present to indicate which implementation/tool/framework
+            emitted the model.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.ProducerVersionFieldNumber">
+            <summary>Field number for the "producer_version" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.ProducerVersion">
+            <summary>
+            The version of the framework or tool used to generate this model.
+            This field SHOULD be present to indicate which implementation/tool/framework
+            emitted the model.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.DomainFieldNumber">
+            <summary>Field number for the "domain" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.Domain">
+             <summary>
+             Domain name of the model.
+             We use reverse domain names as name space indicators. For example:
+             `com.facebook.fair` or `com.microsoft.cognitiveservices`
+            
+             Together with `model_version` and GraphProto.name, this forms the unique identity of
+             the graph.
+             </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.ModelVersionFieldNumber">
+            <summary>Field number for the "model_version" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.ModelVersion">
+            <summary>
+            The version of the graph encoded. See Version enum below.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.DocString">
+            <summary>
+            A human-readable documentation for this model. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.GraphFieldNumber">
+            <summary>Field number for the "graph" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.Graph">
+            <summary>
+            The parameterized graph that is evaluated to execute the model.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.ModelAuthorFieldNumber">
+            <summary>Field number for the "model_author" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.ModelAuthor">
+            <summary>
+            The  name of the author who created the graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ModelProto.ModelLicenseFieldNumber">
+            <summary>Field number for the "model_license" field.</summary>
+        </member>
+        <member name="P:LotusIR.ModelProto.ModelLicense">
+            <summary>
+             licensing information concerning use or origination of the graph.
+            This text MAY contain Markdown markup that conforms to http://commonmark.org/. 
+            </summary>
+        </member>
+        <member name="T:LotusIR.GraphProto">
+            <summary>
+            GraphProto defines a parameterized series of nodes to form a directed acyclic graph.
+            This is the equivalent of the "network" and "graph" in many deep learning
+            frameworks.
+            All the input/output tensors are explicitly named so a framework can
+            run any subgraph of the graph by feeding and fetching the named tensors.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.NodeFieldNumber">
+            <summary>Field number for the "node" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.Node">
+            <summary>
+            The nodes in the graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.Name">
+            <summary>
+            The name of the graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.InitializerFieldNumber">
+            <summary>Field number for the "initializer" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.Initializer">
+            <summary>
+            A list of named tensor values (constants), used to specify default
+            values for some of the inputs of the graph.
+            Each TensorProto entry must have a distinct name (within the list) that
+            also appears in the input list.
+            In an evaluation, the default value specified here is used if and only if
+            user specifies no value for the corresponding input parameter.
+            May be used to pass serialized parameters for networks.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.DocString">
+            <summary>
+            A human-readable documentation for this graph. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.Input">
+            <summary>
+            The inputs and outputs of the graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.ValueInfoFieldNumber">
+            <summary>Field number for the "value_info" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.ValueInfo">
+            <summary>
+            Information for the values in the graph. The ValueInfoProto.name's
+            must be distinct. It is  for a value to appear in value_info list.
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.FunctionFieldNumber">
+            <summary>Field number for the "function" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.Function">
+            <summary>
+            The function definitions of the graph. They can only only be used
+            (i.e., called) in this graph.
+            Each FunctionDefProto in function MUST have a unique name. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.OperatorFieldNumber">
+            <summary>Field number for the "operator" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.Operator">
+            <summary>
+            The externally defined operators declared by this graph. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.GraphProto.ImportedLibrariesFieldNumber">
+            <summary>Field number for the "imported_libraries" field.</summary>
+        </member>
+        <member name="P:LotusIR.GraphProto.ImportedLibraries">
+            <summary>
+            Imported libraries are referenced as a collection of strings in the form of absolute
+            URIs or relative paths. Where such relative paths are rooted is defined by tools and
+            runtime implementations.
+            </summary>
+        </member>
+        <member name="T:LotusIR.TensorProto">
+            <summary>
+            A message defined to store a tensor in its serialized format.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.DimsFieldNumber">
+            <summary>Field number for the "dims" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.Dims">
+            <summary>
+            The shape of the tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.DataTypeFieldNumber">
+            <summary>Field number for the "data_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.DataType">
+            <summary>
+            The data type of the tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.SegmentFieldNumber">
+            <summary>Field number for the "segment" field.</summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.FloatDataFieldNumber">
+            <summary>Field number for the "float_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.FloatData">
+            <summary>
+            For float and complex64 values
+            Complex64 tensors are encoded as a single array of floats,
+            with the real components appearing in odd numbered positions,
+            and the corresponding imaginary component apparing in the
+            subsequent even numbered position. (e.g., [1.0 + 2.0i, 3.0 + 4.0i]
+            is encoded as [1.0, 2.0 ,3.0 ,4.0]
+            When this field is present, the data_type field MUST be FLOAT or COMPLEX64.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Int32DataFieldNumber">
+            <summary>Field number for the "int32_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.Int32Data">
+            <summary>
+            For int32, uint8, int8, uint16, int16, bool, and float16 values
+            float16 values must be bit-wise converted to an uint16_t prior
+            to writing to the buffer.
+            When this field is present, the data_type field MUST be
+            INT32, INT16, INT8, UINT16, INT8, BOOL, or FLOAT32
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.StringDataFieldNumber">
+            <summary>Field number for the "string_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.StringData">
+            <summary>
+            For strings.
+            Each element of string_data is a UTF-8 encoded Unicode
+            string. No trailing null, no leading BOM. The protobuf "string"
+            scalar type is not used to match ML community conventions.
+            When this field is present, the data_type field MUST be STRING
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Int64DataFieldNumber">
+            <summary>Field number for the "int64_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.Int64Data">
+            <summary>
+            For int64.
+            When this field is present, the data_type field MUST be INT64
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.Name">
+            <summary>
+            ly, a name for the tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.RawDataFieldNumber">
+            <summary>Field number for the "raw_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.RawData">
+             <summary>
+             Serializations can either use one of the fields above, or use this
+             raw bytes field. The only exception is the string case, where one is
+              to store the content in the repeated bytes string_data field.
+            
+             When this raw_data field is used to store tensor value, elements MUST
+             be stored in as fixed-width, little-endian order.
+             Floating-point data types MUST be stored in IEEE 754 format.
+             Complex64 elements must be written as two consecutive FLOAT values, real component first.
+             Complex128 elements must be written as two consecutive DOUBLE values, real component first.
+             Boolean type MUST be written one byte per tensor element (00000001 for true, 00000000 for false).
+            
+             Note: the advantage of specific field rather than the raw_data field is
+             that in some cases (e.g. int data), protobuf does a better packing via
+             variable length storage, and may lead to smaller binary footprint.
+             When this field is present, the data_type field MUST NOT be STRING or UNDEFINED
+             </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.DoubleDataFieldNumber">
+            <summary>Field number for the "double_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.DoubleData">
+            <summary>
+            For double
+            Complex64 tensors are encoded as a single array of doubles,
+            with the real components appearing in odd numbered positions,
+            and the corresponding imaginary component apparing in the
+            subsequent even numbered position. (e.g., [1.0 + 2.0i, 3.0 + 4.0i]
+            is encoded as [1.0, 2.0 ,3.0 ,4.0]
+            When this field is present, the data_type field MUST be DOUBLE or COMPLEX128
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Uint64DataFieldNumber">
+            <summary>Field number for the "uint64_data" field.</summary>
+        </member>
+        <member name="P:LotusIR.TensorProto.Uint64Data">
+            <summary>
+            For uint64 and uint32 values
+            When this field is present, the data_type field MUST be
+            UINT32 or UINT64
+            </summary>
+        </member>
+        <member name="T:LotusIR.TensorProto.Types">
+            <summary>Container for nested types declared in the TensorProto message type.</summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Float">
+            <summary>
+            Basic types.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Uint8">
+            <summary>
+            uint8_t
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Int8">
+            <summary>
+            int8_t
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Uint16">
+            <summary>
+            uint16_t
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Int16">
+            <summary>
+            int16_t
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Int32">
+            <summary>
+            int32_t
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Int64">
+            <summary>
+            int64_t
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Bool">
+            <summary>
+            bool
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Float16">
+            <summary>
+            Advanced types
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Complex64">
+            <summary>
+            complex with float32 real and imaginary components
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.DataType.Complex128">
+            <summary>
+            complex with float64 real and imaginary components
+            </summary>
+        </member>
+        <member name="T:LotusIR.TensorProto.Types.Segment">
+            <summary>
+            For very large tensors, we may want to store them in chunks, in which
+            case the following fields will specify the segment that is stored in
+            the current TensorProto.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.Segment.BeginFieldNumber">
+            <summary>Field number for the "begin" field.</summary>
+        </member>
+        <member name="F:LotusIR.TensorProto.Types.Segment.EndFieldNumber">
+            <summary>Field number for the "end" field.</summary>
+        </member>
+        <member name="T:LotusIR.SparseTensorProto">
+            <summary>
+            A sparse tensor must be stored as three dense tensors:
+             1. dims: The shape of the original dense tensor.
+             2. indices: A 2-D tensor specifying the indices of the nonzero elements.
+             3. values: A 1-D tensor containing the values of the nonzero elements.
+            </summary>
+        </member>
+        <member name="F:LotusIR.SparseTensorProto.DimsFieldNumber">
+            <summary>Field number for the "dims" field.</summary>
+        </member>
+        <member name="P:LotusIR.SparseTensorProto.Dims">
+            <summary>
+            The dimensions in the tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.SparseTensorProto.IndicesFieldNumber">
+            <summary>Field number for the "indices" field.</summary>
+        </member>
+        <member name="P:LotusIR.SparseTensorProto.Indices">
+            <summary>
+            This field MUST be present this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.SparseTensorProto.ValuesFieldNumber">
+            <summary>Field number for the "values" field.</summary>
+        </member>
+        <member name="P:LotusIR.SparseTensorProto.Values">
+            <summary>
+            This field MUST be present this version of the IR.
+            </summary>
+        </member>
+        <member name="T:LotusIR.TypeProto">
+            <summary>
+            Define the types.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.TensorTypeFieldNumber">
+            <summary>Field number for the "tensor_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.TensorType">
+            <summary>
+            The type of a tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.SparseTensorTypeFieldNumber">
+            <summary>Field number for the "sparse_tensor_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.SparseTensorType">
+            <summary>
+            The type of a sparse tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.HandleTypeFieldNumber">
+            <summary>Field number for the "handle_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.HandleType">
+            <summary>
+            The type of an opaque handle. A handle is used to represent a
+            reference to a resource managed by the framework runtime.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.TupleTypeFieldNumber">
+            <summary>Field number for the "tuple_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.TupleType">
+            <summary>
+            The type of a tuple.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.SeqTypeFieldNumber">
+            <summary>Field number for the "seq_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.SeqType">
+            <summary>
+            The type of a sequence.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.MapTypeFieldNumber">
+            <summary>Field number for the "map_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.MapType">
+            <summary>
+            The type of a map.
+            </summary>
+        </member>
+        <member name="T:LotusIR.TypeProto.ValueOneofCase">
+            <summary>Enum of possible cases for the "value" oneof.</summary>
+        </member>
+        <member name="T:LotusIR.TypeProto.Types">
+            <summary>Container for nested types declared in the TypeProto message type.</summary>
+        </member>
+        <member name="T:LotusIR.TypeProto.Types.TensorShapeProto">
+            <summary>
+            Defines a tensor shape. A dimension can be either an integer value
+            or a symbolic variable. A symbolic variable represents an unknown
+            dimension.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.TensorShapeProto.DimFieldNumber">
+            <summary>Field number for the "dim" field.</summary>
+        </member>
+        <member name="T:LotusIR.TypeProto.Types.TensorShapeProto.Types">
+            <summary>Container for nested types declared in the TensorShapeProto message type.</summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.TensorShapeProto.Types.Dimension.DimValueFieldNumber">
+            <summary>Field number for the "dim_value" field.</summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.TensorShapeProto.Types.Dimension.DimParamFieldNumber">
+            <summary>Field number for the "dim_param" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.Types.TensorShapeProto.Types.Dimension.DimParam">
+            <summary>
+            namespace Shape
+            </summary>
+        </member>
+        <member name="T:LotusIR.TypeProto.Types.TensorShapeProto.Types.Dimension.ValueOneofCase">
+            <summary>Enum of possible cases for the "value" oneof.</summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.TensorTypeProto.ElemTypeFieldNumber">
+            <summary>Field number for the "elem_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.Types.TensorTypeProto.ElemType">
+            <summary>
+            This field MUST NOT have the value of UNDEFINED
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.TensorTypeProto.ShapeFieldNumber">
+            <summary>Field number for the "shape" field.</summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.SparseTensorTypeProto.ElemTypeFieldNumber">
+            <summary>Field number for the "elem_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.Types.SparseTensorTypeProto.ElemType">
+            <summary>
+            This field MUST NOT have the value of UNDEFINED
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.SparseTensorTypeProto.ShapeFieldNumber">
+            <summary>Field number for the "shape" field.</summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.TupleTypeProto.ElemTypeFieldNumber">
+            <summary>Field number for the "elem_type" field.</summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.SeqTypeProto.ElemTypeFieldNumber">
+            <summary>Field number for the "elem_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.Types.SeqTypeProto.ElemType">
+            <summary>
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.MapTypeProto.KeyTypeFieldNumber">
+            <summary>Field number for the "key_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.Types.MapTypeProto.KeyType">
+            <summary>
+            This field MUST be present for this version of the IR.
+            This field MUST refer to an integral type ([U]INT{8|16|32|64}) or STRING
+            </summary>
+        </member>
+        <member name="F:LotusIR.TypeProto.Types.MapTypeProto.ValueTypeFieldNumber">
+            <summary>Field number for the "value_type" field.</summary>
+        </member>
+        <member name="P:LotusIR.TypeProto.Types.MapTypeProto.ValueType">
+            <summary>
+            This field MUST be present for this version of the IR.
+            This field MUST NOT refer to UNDEFINED
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.DenseTensorFieldNumber">
+            <summary>Field number for the "dense_tensor" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.DenseTensor">
+            <summary>
+            A dense tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.SparseTensorFieldNumber">
+            <summary>Field number for the "sparse_tensor" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.SparseTensor">
+            <summary>
+            A sparse tensor.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.HandleFieldNumber">
+            <summary>Field number for the "handle" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Handle">
+            <summary>
+            A handle.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.TupleFieldNumber">
+            <summary>Field number for the "tuple" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Tuple">
+            <summary>
+            A tuple.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.SeqFieldNumber">
+            <summary>Field number for the "seq" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Seq">
+            <summary>
+            A sequence.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.MapFieldNumber">
+            <summary>Field number for the "map" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Map">
+            <summary>
+            A map.
+            </summary>
+        </member>
+        <member name="T:LotusIR.ValueProto.ValueOneofCase">
+            <summary>Enum of possible cases for the "value" oneof.</summary>
+        </member>
+        <member name="T:LotusIR.ValueProto.Types">
+            <summary>Container for nested types declared in the ValueProto message type.</summary>
+        </member>
+        <member name="T:LotusIR.ValueProto.Types.HandleProto">
+            <summary>
+            Defines a handle in its serialized format.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.Types.HandleProto.UidFieldNumber">
+            <summary>Field number for the "uid" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Types.HandleProto.Uid">
+            <summary>
+            This field MUST be present this version of the IR.  
+            </summary>
+        </member>
+        <member name="T:LotusIR.ValueProto.Types.TupleProto">
+            <summary>
+            Defines a tuple in its serialized format.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.Types.TupleProto.ElemsFieldNumber">
+            <summary>Field number for the "elems" field.</summary>
+        </member>
+        <member name="T:LotusIR.ValueProto.Types.SequenceProto">
+            <summary>
+            Defines a sequence in its serialized format.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.Types.SequenceProto.ElemsFieldNumber">
+            <summary>Field number for the "elems" field.</summary>
+        </member>
+        <member name="T:LotusIR.ValueProto.Types.MapProto">
+            <summary>
+            Defines a map in its serialized format.
+            Maps are serialized as two single-dimensional tensors 
+            for storage efficiency. The dimensions of each tensor MUST be identical
+            and the key at position N corresponds to the value at position N.
+            Keys SHOULD be unique. When a given key appears multiple times,
+            the value that corresponds last occurance of the key is the value.
+            This is consistent with protobuf3 encoding rules for map.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.Types.MapProto.KeysFieldNumber">
+            <summary>Field number for the "keys" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Types.MapProto.Keys">
+            <summary>
+            This field MUST be present for this version of the IR.
+            The data type of the tensor MUST refer to an integral type ([U]INT{8|16|32|64}) or STRING
+            </summary>
+        </member>
+        <member name="F:LotusIR.ValueProto.Types.MapProto.ValuesFieldNumber">
+            <summary>Field number for the "values" field.</summary>
+        </member>
+        <member name="P:LotusIR.ValueProto.Types.MapProto.Values">
+            <summary>
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.ParameterDeclProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:LotusIR.ParameterDeclProto.TypeFieldNumber">
+            <summary>Field number for the "type" field.</summary>
+        </member>
+        <member name="F:LotusIR.ParameterDeclProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.ParameterDeclProto.DocString">
+            <summary>
+            An  human-readable documentation for this parameter.
+            </summary>
+        </member>
+        <member name="T:LotusIR.FunctionDefProto">
+            <summary>
+            Defines a function.
+            </summary>
+        </member>
+        <member name="F:LotusIR.FunctionDefProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.FunctionDefProto.Name">
+            <summary>
+            The name of the function.
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.FunctionDefProto.InputParamsFieldNumber">
+            <summary>Field number for the "input_params" field.</summary>
+        </member>
+        <member name="P:LotusIR.FunctionDefProto.InputParams">
+            <summary>
+            The input parameters of the function.
+            </summary>
+        </member>
+        <member name="F:LotusIR.FunctionDefProto.OutputParamsFieldNumber">
+            <summary>Field number for the "output_params" field.</summary>
+        </member>
+        <member name="P:LotusIR.FunctionDefProto.OutputParams">
+            <summary>
+            The output parameters of the function.
+            </summary>
+        </member>
+        <member name="F:LotusIR.FunctionDefProto.NodeFieldNumber">
+            <summary>Field number for the "node" field.</summary>
+        </member>
+        <member name="P:LotusIR.FunctionDefProto.Node">
+            <summary>
+            The body of the function.
+            </summary>
+        </member>
+        <member name="F:LotusIR.FunctionDefProto.AttrFieldNumber">
+            <summary>Field number for the "attr" field.</summary>
+        </member>
+        <member name="P:LotusIR.FunctionDefProto.Attr">
+            <summary>
+            The named attributes of the function.
+            </summary>
+        </member>
+        <member name="F:LotusIR.FunctionDefProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.FunctionDefProto.DocString">
+            <summary>
+            An  human-readable documentation for this node in the graph.
+            This text MAY contain Markdown markup that conforms to http://commonmark.org/. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.SignatureDeclProto.InputParamsFieldNumber">
+            <summary>Field number for the "input_params" field.</summary>
+        </member>
+        <member name="P:LotusIR.SignatureDeclProto.InputParams">
+            <summary>
+            The formal input parameters to the operation or function 
+            </summary>
+        </member>
+        <member name="F:LotusIR.SignatureDeclProto.OutputParamsFieldNumber">
+            <summary>Field number for the "output_params" field.</summary>
+        </member>
+        <member name="P:LotusIR.SignatureDeclProto.OutputParams">
+            <summary>
+            The formal output parameters to the operation or function 
+            </summary>
+        </member>
+        <member name="F:LotusIR.SignatureDeclProto.InputAttributesFieldNumber">
+            <summary>Field number for the "input_attributes" field.</summary>
+        </member>
+        <member name="P:LotusIR.SignatureDeclProto.InputAttributes">
+            <summary>
+            The declaration of expected attributes to the operation or function 
+            </summary>
+        </member>
+        <member name="F:LotusIR.SignatureDeclProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.SignatureDeclProto.DocString">
+            <summary>
+            An  human-readable documentation for this signature.
+            </summary>
+        </member>
+        <member name="F:LotusIR.OperatorDeclProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.OperatorDeclProto.Name">
+            <summary>
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:LotusIR.OperatorDeclProto.SignatureFieldNumber">
+            <summary>Field number for the "signature" field.</summary>
+        </member>
+        <member name="P:LotusIR.OperatorDeclProto.Signature">
+            <summary>
+            This field MUST contain at least one SignatureDeclProto.
+            This field MAY contain multiple SignatureDeclProtos, one 
+            per type signature supported by this operator.
+            </summary>
+        </member>
+        <member name="F:LotusIR.OperatorDeclProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.OperatorDeclProto.DocString">
+            <summary>
+            An  human-readable documentation for this operator.
+            </summary>
+        </member>
+        <member name="T:LotusIR.LibraryProto">
+            <summary>
+            A library is a top-level format that contains the declaration
+            of operators and the definition of functions. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.IrVersionFieldNumber">
+            <summary>Field number for the "ir_version" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.IrVersion">
+            <summary>
+            The version of the IR this graph targets. See Version enum below.
+            This field MUST be present this version of the IR.  
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.ProducerVersionFieldNumber">
+            <summary>Field number for the "producer_version" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.ProducerVersion">
+            <summary>
+            The  version of the framework runtime that generates this graph.
+            This producer_version has the same format as ir_version. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.ProducerTagFieldNumber">
+            <summary>Field number for the "producer_tag" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.ProducerTag">
+            <summary>
+            The  name of the framework used to generate this graph in the form
+            "framework_name[-tag]". Tag is  and provides additional
+            information such as `alpha` or `beta` or `rc3`.
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.ModelVersionFieldNumber">
+            <summary>Field number for the "model_version" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.ModelVersion">
+            <summary>
+            An  version identifier used to track evolution of this library.
+            This model_version has the same format as ir_version. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.ModelAuthorFieldNumber">
+            <summary>Field number for the "model_author" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.ModelAuthor">
+            <summary>
+            The  name of the author who created the library.
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.ModelLicenseFieldNumber">
+            <summary>Field number for the "model_license" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.ModelLicense">
+            <summary>
+             licensing information concerning use or origination of the library.
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.Name">
+            <summary>
+            The name of the library.
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.DomainFieldNumber">
+            <summary>Field number for the "domain" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.Domain">
+             <summary>
+             Domain of the graph.
+             We use reverse domain names as name space indicators. For example:
+             `com.facebook.fair` or `com.microsoft.cognitiveservices`
+            
+             Together with `name` and `model_version`, this forms the unique identity of
+             the library.
+             </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.DocString">
+            <summary>
+            An  human-readable documentation for this graph.
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.OperatorFieldNumber">
+            <summary>Field number for the "operator" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.Operator">
+            <summary>
+            The operators declared by this library. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.FunctionFieldNumber">
+            <summary>Field number for the "function" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.Function">
+            <summary>
+            The function definitions of the library. 
+            </summary>
+        </member>
+        <member name="F:LotusIR.LibraryProto.ImportedLibrariesFieldNumber">
+            <summary>Field number for the "imported_libraries" field.</summary>
+        </member>
+        <member name="P:LotusIR.LibraryProto.ImportedLibraries">
+            <summary>
+            Imported libraries are referenced as a collection of strings in the form of absolute
+            URIs or relative paths. Where such relative paths are rooted is defined by tools and
+            runtime implementations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OnnxMlReflection">
+            <summary>Holder for reflection information generated from onnx-ml.proto3</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OnnxMlReflection.Descriptor">
+            <summary>File descriptor for onnx-ml.proto3</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.Version">
+            <summary>
+            To be compatible with both proto2 and proto3, we will use a version number
+            that is not defined by the default value but an explicit enum number.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.Version.StartVersion">
+            <summary>
+            proto3 requires the first enum value to be zero.
+            We add this just to appease the compiler.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.Version.IrVersion20171010">
+            <summary>
+            The version field is always serialized and we will use it to store the
+            version that the  graph is generated from. This helps us set up version
+            control. We should use version as
+                xx(major) - xx(minor) - xxxx(bugfix)
+            and we are starting with 0x00000001 (0.0.1), which was the
+             version we published on Oct 10, 2017.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.Version.IrVersion20171030">
+            <summary>
+            IR_VERSION 0.0.2 published on Oct 30, 2017
+            - Added type discriminator to AttributeProto to support proto3 users
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.Version.IrVersion">
+            <summary>
+            IR VERSION 0.0.3 published on Nov 3, 2017
+            - For operator versioning:
+               - Added new message OperatorSetIdProto
+               - Added opset_import in ModelProto
+            - For vendor extensions, added domain in NodeProto
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto">
+            <summary>
+            A named attribute containing either singular float, integer, string
+            and tensor values, or repeated float, integer, string and tensor values.
+            An AttributeProto MUST contain the name field, and *only one* of the
+            following content fields, effectively enforcing a C/C++ union equivalent.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Name">
+            <summary>
+            The name field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.DocString">
+            <summary>
+            A human-readable documentation for this attribute. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.TypeFieldNumber">
+            <summary>Field number for the "type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Type">
+            <summary>
+            The type field MUST be present for this version of the IR.
+            For 0.0.1 versions of the IR, this field was not defined, and
+            implementations needed to use has_field hueristics to determine
+            which value field was in use.  For IR_VERSION 0.0.2 or later, this
+            field MUST be set and match the f|i|s|t|... field in use.  This
+            change was made to accomodate proto3 implementations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.FFieldNumber">
+            <summary>Field number for the "f" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.F">
+            <summary>
+            Exactly ONE of the following fields must be present for this version of the IR
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.IFieldNumber">
+            <summary>Field number for the "i" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.I">
+            <summary>
+            int
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.SFieldNumber">
+            <summary>Field number for the "s" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.S">
+            <summary>
+            UTF-8 string
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.TFieldNumber">
+            <summary>Field number for the "t" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.T">
+            <summary>
+            tensor value
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.GFieldNumber">
+            <summary>Field number for the "g" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.G">
+            <summary>
+            graph
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.FloatsFieldNumber">
+            <summary>Field number for the "floats" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Floats">
+            <summary>
+            list of floats
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.IntsFieldNumber">
+            <summary>Field number for the "ints" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Ints">
+            <summary>
+            list of ints
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.StringsFieldNumber">
+            <summary>Field number for the "strings" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Strings">
+            <summary>
+            list of UTF-8 strings
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.TensorsFieldNumber">
+            <summary>Field number for the "tensors" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Tensors">
+            <summary>
+            list of tensors
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.GraphsFieldNumber">
+            <summary>Field number for the "graphs" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Graphs">
+            <summary>
+            list of graph
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Types">
+            <summary>Container for nested types declared in the AttributeProto message type.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.AttributeProto.Types.AttributeType">
+            <summary>
+            Note: this enum is structurally identical to the OpSchema::AttrType
+            enum defined in schema.h.  If you rev one, you likely need to rev the other.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto">
+            <summary>
+            Defines information on value, including the name, the type, and
+            the shape of the value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto.Name">
+            <summary>
+            This field MUST be present in this version of the IR.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto.TypeFieldNumber">
+            <summary>Field number for the "type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto.Type">
+            <summary>
+            This field MUST be present in this version of the IR.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ValueInfoProto.DocString">
+            <summary>
+            A human-readable documentation for this value. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto">
+            <summary>
+            NodeProto stores a node that is similar to the notion of "layer"
+            or "operator" in many deep learning frameworks. For example, it can be a
+            node of type "Conv" that takes in an image, a filter tensor and a bias
+            tensor, and produces the convolved output.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.Input">
+            <summary>
+            namespace Value
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.Output">
+            <summary>
+            namespace Value
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.Name">
+            <summary>
+            An optional identifier for this node in a graph.
+            This field MAY be absent in ths version of the IR.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.OpTypeFieldNumber">
+            <summary>Field number for the "op_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.OpType">
+            <summary>
+            The symbolic identifier of the Operator to execute.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.DomainFieldNumber">
+            <summary>Field number for the "domain" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.Domain">
+            <summary>
+            The domain of the OperatorSet that specifies the operator named by op_type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.AttributeFieldNumber">
+            <summary>Field number for the "attribute" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.Attribute">
+            <summary>
+            Additional named attributes.
+            NOTE: Simply using ValueProto.NameValuePairProto is the most general
+                  solution.  I kept AttributeProto to minimize churn on CI results.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.NodeProto.DocString">
+            <summary>
+            A human-readable documentation for this node. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto">
+            <summary>
+            ModelProto is a top-level file/container format for bundling a ML model.
+            The semantics of the model are described by the GraphProto that represents
+            a parameterized computation graph against a set of named operators that are
+            defined independently from the graph.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.IrVersionFieldNumber">
+            <summary>Field number for the "ir_version" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.IrVersion">
+            <summary>
+            The version of the IR this model targets. See Version enum above.
+            This field MUST be present.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.OpsetImportFieldNumber">
+            <summary>Field number for the "opset_import" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.OpsetImport">
+             <summary>
+             The OperatorSets this model relies on.
+             All ModelProtos MUST have at least one entry that
+             specifies which version of the ONNX OperatorSet is
+             being imported.
+            
+             All nodes in the ModelProto's graph will bind against the operator
+             with the same-domain/same-op_type operator with the HIGHEST version
+             in the referenced operator sets.
+             </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.ProducerNameFieldNumber">
+            <summary>Field number for the "producer_name" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.ProducerName">
+            <summary>
+            The name of the framework or tool used to generate this model.
+            This field SHOULD be present to indicate which implementation/tool/framework
+            emitted the model.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.ProducerVersionFieldNumber">
+            <summary>Field number for the "producer_version" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.ProducerVersion">
+            <summary>
+            The version of the framework or tool used to generate this model.
+            This field SHOULD be present to indicate which implementation/tool/framework
+            emitted the model.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.DomainFieldNumber">
+            <summary>Field number for the "domain" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.Domain">
+             <summary>
+             Domain name of the model.
+             We use reverse domain names as name space indicators. For example:
+             `com.facebook.fair` or `com.microsoft.cognitiveservices`
+            
+             Together with `model_version` and GraphProto.name, this forms the unique identity of
+             the graph.
+             </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.ModelVersionFieldNumber">
+            <summary>Field number for the "model_version" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.ModelVersion">
+            <summary>
+            The version of the graph encoded. See Version enum below.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.DocString">
+            <summary>
+            A human-readable documentation for this model. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.GraphFieldNumber">
+            <summary>Field number for the "graph" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.Graph">
+            <summary>
+            The parameterized graph that is evaluated to execute the model.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.MetadataPropsFieldNumber">
+            <summary>Field number for the "metadata_props" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.ModelProto.MetadataProps">
+            <summary>
+            Named metadata values; keys should be distinct.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.StringStringEntryProto">
+            <summary>
+            StringStringEntryProto follows the pattern for cross-proto-version maps.
+            See https://developers.google.com/protocol-buffers/docs/proto3#maps
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.StringStringEntryProto.KeyFieldNumber">
+            <summary>Field number for the "key" field.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.StringStringEntryProto.ValueFieldNumber">
+            <summary>Field number for the "value" field.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto">
+            <summary>
+            GraphProto defines a parameterized series of nodes to form a directed acyclic graph.
+            This is the equivalent of the "network" and "graph" in many deep learning
+            frameworks.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.NodeFieldNumber">
+            <summary>Field number for the "node" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.Node">
+            <summary>
+            The nodes in the graph.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.Name">
+            <summary>
+            The name of the graph.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.InitializerFieldNumber">
+            <summary>Field number for the "initializer" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.Initializer">
+            <summary>
+            A list of named tensor values (constants), used to specify default
+            values for some of the inputs of the graph.
+            Each TensorProto entry must have a distinct name (within the list) that
+            also appears in the input list.
+            In an evaluation, the default value specified here is used if and only if
+            user specifies no value for the corresponding input parameter.
+            May be used to pass serialized parameters for networks.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.DocString">
+            <summary>
+            A human-readable documentation for this graph. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.Input">
+            <summary>
+            The inputs and outputs of the graph.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.ValueInfoFieldNumber">
+            <summary>Field number for the "value_info" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.GraphProto.ValueInfo">
+            <summary>
+            Information for the values in the graph. The ValueInfoProto.name's
+            must be distinct. It is optional for a value to appear in value_info list.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto">
+            <summary>
+            A message defined to store a tensor in its serialized format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DimsFieldNumber">
+            <summary>Field number for the "dims" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Dims">
+            <summary>
+            The shape of the tensor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DataTypeFieldNumber">
+            <summary>Field number for the "data_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DataType">
+            <summary>
+            The data type of the tensor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.SegmentFieldNumber">
+            <summary>Field number for the "segment" field.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.FloatDataFieldNumber">
+            <summary>Field number for the "float_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.FloatData">
+            <summary>
+            For float and complex64 values
+            Complex64 tensors are encoded as a single array of floats,
+            with the real components appearing in odd numbered positions,
+            and the corresponding imaginary component apparing in the
+            subsequent even numbered position. (e.g., [1.0 + 2.0i, 3.0 + 4.0i]
+            is encoded as [1.0, 2.0 ,3.0 ,4.0]
+            When this field is present, the data_type field MUST be FLOAT or COMPLEX64.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Int32DataFieldNumber">
+            <summary>Field number for the "int32_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Int32Data">
+            <summary>
+            For int32, uint8, int8, uint16, int16, bool, and float16 values
+            float16 values must be bit-wise converted to an uint16_t prior
+            to writing to the buffer.
+            When this field is present, the data_type field MUST be
+            INT32, INT16, INT8, UINT16, INT8, BOOL, or FLOAT32
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.StringDataFieldNumber">
+            <summary>Field number for the "string_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.StringData">
+            <summary>
+            For strings.
+            Each element of string_data is a UTF-8 encoded Unicode
+            string. No trailing null, no leading BOM. The protobuf "string"
+            scalar type is not used to match ML community conventions.
+            When this field is present, the data_type field MUST be STRING
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Int64DataFieldNumber">
+            <summary>Field number for the "int64_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Int64Data">
+            <summary>
+            For int64.
+            When this field is present, the data_type field MUST be INT64
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Name">
+            <summary>
+            Optionally, a name for the tensor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DocStringFieldNumber">
+            <summary>Field number for the "doc_string" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DocString">
+            <summary>
+            A human-readable documentation for this tensor. Markdown is allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.RawDataFieldNumber">
+            <summary>Field number for the "raw_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.RawData">
+             <summary>
+             Serializations can either use one of the fields above, or use this
+             raw bytes field. The only exception is the string case, where one is
+             required to store the content in the repeated bytes string_data field.
+            
+             When this raw_data field is used to store tensor value, elements MUST
+             be stored in as fixed-width, little-endian order.
+             Floating-point data types MUST be stored in IEEE 754 format.
+             Complex64 elements must be written as two consecutive FLOAT values, real component first.
+             Complex128 elements must be written as two consecutive DOUBLE values, real component first.
+             Boolean type MUST be written one byte per tensor element (00000001 for true, 00000000 for false).
+            
+             Note: the advantage of specific field rather than the raw_data field is
+             that in some cases (e.g. int data), protobuf does a better packing via
+             variable length storage, and may lead to smaller binary footprint.
+             When this field is present, the data_type field MUST NOT be STRING or UNDEFINED
+             </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DoubleDataFieldNumber">
+            <summary>Field number for the "double_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.DoubleData">
+            <summary>
+            For double
+            Complex64 tensors are encoded as a single array of doubles,
+            with the real components appearing in odd numbered positions,
+            and the corresponding imaginary component apparing in the
+            subsequent even numbered position. (e.g., [1.0 + 2.0i, 3.0 + 4.0i]
+            is encoded as [1.0, 2.0 ,3.0 ,4.0]
+            When this field is present, the data_type field MUST be DOUBLE or COMPLEX128
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Uint64DataFieldNumber">
+            <summary>Field number for the "uint64_data" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Uint64Data">
+            <summary>
+            For uint64 and uint32 values
+            When this field is present, the data_type field MUST be
+            UINT32 or UINT64
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types">
+            <summary>Container for nested types declared in the TensorProto message type.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Float">
+            <summary>
+            Basic types.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Uint8">
+            <summary>
+            uint8_t
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Int8">
+            <summary>
+            int8_t
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Uint16">
+            <summary>
+            uint16_t
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Int16">
+            <summary>
+            int16_t
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Int32">
+            <summary>
+            int32_t
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Int64">
+            <summary>
+            int64_t
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Bool">
+            <summary>
+            bool
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Float16">
+            <summary>
+            Advanced types
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Complex64">
+            <summary>
+            complex with float32 real and imaginary components
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.DataType.Complex128">
+            <summary>
+            complex with float64 real and imaginary components
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.Segment">
+            <summary>
+            For very large tensors, we may want to store them in chunks, in which
+            case the following fields will specify the segment that is stored in
+            the current TensorProto.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.Segment.BeginFieldNumber">
+            <summary>Field number for the "begin" field.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorProto.Types.Segment.EndFieldNumber">
+            <summary>Field number for the "end" field.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto">
+            <summary>
+            Defines a tensor shape. A dimension can be either an integer value
+            or a symbolic variable. A symbolic variable represents an unknown
+            dimension.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto.DimFieldNumber">
+            <summary>Field number for the "dim" field.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto.Types">
+            <summary>Container for nested types declared in the TensorShapeProto message type.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto.Types.Dimension.DimValueFieldNumber">
+            <summary>Field number for the "dim_value" field.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto.Types.Dimension.DimParamFieldNumber">
+            <summary>Field number for the "dim_param" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto.Types.Dimension.DimParam">
+            <summary>
+            namespace Shape
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TensorShapeProto.Types.Dimension.ValueOneofCase">
+            <summary>Enum of possible cases for the "value" oneof.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto">
+            <summary>
+            Define the types.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.TensorTypeFieldNumber">
+            <summary>Field number for the "tensor_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.TensorType">
+            <summary>
+            The type of a tensor.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.SequenceTypeFieldNumber">
+            <summary>Field number for the "sequence_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.SequenceType">
+            <summary>
+            The type of a sequence.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.MapTypeFieldNumber">
+            <summary>Field number for the "map_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.MapType">
+            <summary>
+            The type of a map.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.ValueOneofCase">
+            <summary>Enum of possible cases for the "value" oneof.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types">
+            <summary>Container for nested types declared in the TypeProto message type.</summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Tensor.ElemTypeFieldNumber">
+            <summary>Field number for the "elem_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Tensor.ElemType">
+            <summary>
+            This field MUST NOT have the value of UNDEFINED
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Tensor.ShapeFieldNumber">
+            <summary>Field number for the "shape" field.</summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Sequence">
+            <summary>
+            repeated T
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Sequence.ElemTypeFieldNumber">
+            <summary>Field number for the "elem_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Sequence.ElemType">
+            <summary>
+            The type and optional shape of each element of the sequence.
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Map">
+            <summary>
+            map&lt;K,V>
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Map.KeyTypeFieldNumber">
+            <summary>Field number for the "key_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Map.KeyType">
+            <summary>
+            This field MUST be present for this version of the IR.
+            This field MUST refer to an integral type ([U]INT{8|16|32|64}) or STRING
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Map.ValueTypeFieldNumber">
+            <summary>Field number for the "value_type" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.TypeProto.Types.Map.ValueType">
+            <summary>
+            This field MUST be present for this version of the IR.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OperatorSetIdProto">
+            <summary>
+            OperatorSets are uniquely identified by a (domain, opset_version) pair.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OperatorSetIdProto.DomainFieldNumber">
+            <summary>Field number for the "domain" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OperatorSetIdProto.Domain">
+            <summary>
+            The domain of the operator set being identified.
+            The empty string ("") or absence of this field implies the operator
+            set that is defined as part of the ONNX specification.
+            This field MUST be present in this version of the IR when referring to any other operator set.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OperatorSetIdProto.VersionFieldNumber">
+            <summary>Field number for the "version" field.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Runtime.UniversalModelFormat.Onnx.OperatorSetIdProto.Version">
+            <summary>
+            The version of the operator set being identified.
+            This field MUST be present in this version of the IR.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,6 @@
 cd $psscriptroot\..\
 
-Import-Module .\AmoebaML\AmoebaML.psd1 -Passthru -Global | out-null
+Import-Module .\AmoebaML.Module\AmoebaML.psd1 -Passthru -Global | out-null
 
 $Pipeline = New-AmoebaMLPipeline -Verbose
 . .\Tests\HousePricePrediction.Models.Test.ps1 #Imports your Models.
