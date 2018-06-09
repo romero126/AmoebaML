@@ -1,7 +1,5 @@
 cd $psscriptroot\..\
 
-#ls AmoebaML\AmoebaML.psd1
-
 Import-Module .\AmoebaML\AmoebaML.psd1 -Passthru -Global | out-null
 
 $Pipeline = New-AmoebaMLPipeline -Verbose
@@ -50,5 +48,8 @@ $Prediction = $Model.Predict($Object)
 write-host ("-" * 30)
 write-host "Your Price Prediction is:", $Prediction.Price
 
-$Model | Save-AmoebaMLModel -Path "Tests\Prediction.Model"
+#write-host "Saving Data"
+
+#$Model | Save-AmoebaMLModel -Path "$psscriptroot\Prediction.Model"
+#write-host "$psscriptroot\Prediction.Model"
 #Todo Create Load-AmoebaMLModel
