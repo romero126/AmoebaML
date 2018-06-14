@@ -12,12 +12,7 @@ function LOG()
 
 $Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\*.ps1 -ErrorAction SilentlyContinue )
 $Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue )
-$Libraries = @( Get-ChildItem -Path $PSScriptRoot\Libraries\*.dll -Recurse -ErrorAction SilentlyContinue )
 
-
-foreach ($LibraryFile in $Libraries) {
-    #Add-Type -Path $LibraryFile.FullName
-}
 foreach ($ScriptFile in @($Public + $Private) ) {
     try {
         . $ScriptFile.FullName

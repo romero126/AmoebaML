@@ -15,7 +15,6 @@ $Pipeline | Add-AmoebaMLPipeline (New-AmoebaMLPipelineTransform -Type ColumnConc
 $Pipeline | Add-AmoebaMLPipeline (New-AmoebaMLPipelineTrainer -Type StochasticDualCoordinateAscentRegressor)
 $Model = Invoke-AmoebaMLPipeline -Pipeline $Pipeline -DataSet ([HousePriceData]) -Predictor ([HousePricePrediction])
 
-
 $Object = [HousePriceData]@{
     Bedrooms = 3;
     Bathrooms = 2;
@@ -43,7 +42,7 @@ write-host "`r`n"
 write-host ("-" * 30)
 write-host "Generating Prediction:"
 write-host "Prediction Data"
-$Object
+#$Object
 $Prediction = $Model.Predict($Object)
 write-host ("-" * 30)
 write-host "Your Price Prediction is:", $Prediction.Price

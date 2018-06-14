@@ -1,11 +1,26 @@
 cd $psscriptroot\..\
 
-Import-Module .\AmoebaML\AmoebaML.psd1 -Passthru -Global | out-null
+Import-Module .\AmoebaML.Module\AmoebaML.psd1 -Passthru -Global | out-null
 
 . .\Tests\HousePricePrediction.Models.Test.ps1 #Imports your Models.
+
+#([AmoebaML.Helper]).DeclaredConstructors
+
+<#
+$v = [AmeobaML.Helper[HousePriceData,HousePricePrediction]]::new()
+#$v = [AmoebaML.Helper]::new([HousepriceData], [HousePricePrediction])
+$path = ls Tests\Prediction.Model | % FullName
+
+$v.Load($path)
+#>
+
+#[Microsoft.ML.PredictionModel`2[HousePriceData,HousePricePrediction]]
+
+
+#
+
 $Model = Load-AmoebaMLModel -Path "$psscriptroot\Prediction.Model" -DataSet ([HousePriceData]) -Predictor ([HousePricePrediction])
 
-$Model | gm
 return
 
 $Object = [HousePriceData]@{
