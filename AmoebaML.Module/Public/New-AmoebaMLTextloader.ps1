@@ -11,7 +11,7 @@ function New-AmoebaMLTextLoader {
         [Switch]$SupportsSparse,
         [Switch]$TrimWhiteSpace
     )
-    Write-Verbose ("{0}: {1}" -f $MyInvocation.MyCommand, "Called.");
+    Write-Verbose ("{0}: {1}" -f $MyInvocation.MyCommand, "Called");
     if (-not (Test-Path $Path)) {
         throw "Cannot find path `'$Path`' because it does not exist."
         return

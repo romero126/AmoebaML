@@ -9,6 +9,7 @@ function Invoke-AmoebaMLPipeline {
         [Type]$Predictor
         
     )
+    Write-Verbose ("{0}: {1}" -f $MyInvocation.MyCommand, "Training Data");
     $Method = [Microsoft.ML.LearningPipeline].GetMethod("Train").MakeGenericMethod([Type]$DataSet,[Type]$Predictor)
     try {
         return $Method.Invoke($Pipeline.Value, $null)

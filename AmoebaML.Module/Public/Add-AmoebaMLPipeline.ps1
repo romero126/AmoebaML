@@ -11,7 +11,6 @@ function Add-AmoebaMLPipeline {
         throw "Pipeline expecting type Microsoft.ML.LearningPipeline."
     }
     Write-Verbose ("{0}: {1}" -f $MyInvocation.MyCommand, "added Successfully.");
-    
     $Pipeline.Value.Add($object)
 }
 

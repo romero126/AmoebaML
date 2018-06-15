@@ -3,25 +3,7 @@ cd $psscriptroot\..\
 Import-Module .\AmoebaML.Module\AmoebaML.psd1 -Passthru -Global | out-null
 
 . .\Tests\HousePricePrediction.Models.Test.ps1 #Imports your Models.
-
-#([AmoebaML.Helper]).DeclaredConstructors
-
-<#
-$v = [AmeobaML.Helper[HousePriceData,HousePricePrediction]]::new()
-#$v = [AmoebaML.Helper]::new([HousepriceData], [HousePricePrediction])
-$path = ls Tests\Prediction.Model | % FullName
-
-$v.Load($path)
-#>
-
-#[Microsoft.ML.PredictionModel`2[HousePriceData,HousePricePrediction]]
-
-
-#
-
-$Model = Load-AmoebaMLModel -Path "$psscriptroot\Prediction.Model" -DataSet ([HousePriceData]) -Predictor ([HousePricePrediction])
-
-return
+$Model = Import-AmoebaMLModel -Path "$psscriptroot\Prediction.Model" -DataSet ([HousePriceData]) -Predictor ([HousePricePrediction])
 
 $Object = [HousePriceData]@{
     Bedrooms = 3;
@@ -44,7 +26,6 @@ $Object = [HousePriceData]@{
     SqftLot15 = 4705;
 }
 
-
 write-host "`r`n"
 write-host "`r`n"
 write-host ("-" * 30)
@@ -52,7 +33,6 @@ write-host "Generating Prediction:"
 write-host "Prediction Data"
 $Object
 $Prediction = $Model.Predict($Object)
+
 write-host ("-" * 30)
 write-host "Your Price Prediction is:", $Prediction.Price
-
-
