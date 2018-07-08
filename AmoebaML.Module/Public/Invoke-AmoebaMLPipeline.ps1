@@ -17,6 +17,7 @@ function Invoke-AmoebaMLPipeline {
     catch {
         write-host ( @(
         $_
+        
         $_.exception.InnerException.StackTrace
         $_.exception
         $_.exception.InnerException
